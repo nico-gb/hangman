@@ -1,0 +1,46 @@
+import time
+import sys
+import random
+
+name = input("What is your name? ")
+word_list = ["Hello", "Orange", "Eighteen", "Bread", "Nuclear Fallout"]
+def main():
+    print("Hello " + name + ", time to play hangman")
+
+
+    word_index = random.randint(0,len(word_list) - 1)
+    secret_word = word_list[word_index]
+    guesses = ''
+    turns = 5
+
+    while turns > 0:
+        failed_guesses = 0
+        for letter in secret_word:
+            if letter in guesses or letter.lower() in guesses or letter.upper() in guesses:
+                print(letter)
+            else:
+                print("-")
+                failed_guesses += 1
+        if failed_guesses == 0:
+            win()
+            break
+        current_guess = input("Guess a letter: ")
+        if current_guess == 'Pepperoni':
+                sys.exit()
+        guesses += current_guess
+        if current_guess not in secret_word and current_guess.upper() not in secret_word:
+            turns -= 1
+            print("Wrong guess")
+            print("You have " + str(turns) + " guesses left")
+        if turns == 0:
+            lose()
+        if turns == 5:
+            print("___________")
+            print("|         |")
+            print("|")
+            print("|")
+            print("|")
+            print("|")
+            print("|")
+            print("_____________")
+
